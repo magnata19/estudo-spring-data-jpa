@@ -22,28 +22,28 @@ public class JavaApplication {
 
 			List<Cliente> listarClientes = clientes.listarClientes();
 			listarClientes.forEach(System.out::println);
-
-			System.out.println("Atualizando Cliente");
-			listarClientes.forEach(c -> {
-				c.setNome(c.getNome() + "atualizado.");
-				clientes.atualizarCliente(c);
-				System.out.println(c);
-			});
-
-			System.out.println("Buscando Clientes ");
-			clientes.buscarPorNome("atual").forEach(System.out::println);
-
-//			System.out.println("Deletando clientes");
-//			clientes.listarClientes().forEach(c -> {
-//				clientes.deletar(c);
+//
+//			System.out.println("Atualizando Cliente");
+//			listarClientes.forEach(c -> {
+//				c.setNome(c.getNome() + "atualizado.");
+//				clientes.atualizarCliente(c);
+//				System.out.println(c);
 //			});
-
-			listarClientes = clientes.listarClientes();
-			if(listarClientes.isEmpty()) {
-				System.out.println("Nenhum cliente encontrado.");
-			} else {
-				listarClientes.forEach(System.out::println);
-			}
+//
+//			System.out.println("Buscando Clientes ");
+//			clientes.buscarPorNome("atual").forEach(System.out::println);
+//
+////			System.out.println("Deletando clientes");
+////			clientes.listarClientes().forEach(c -> {
+////				clientes.deletar(c);
+////			});
+//
+//			listarClientes = clientes.listarClientes();
+//			if(listarClientes.isEmpty()) {
+//				System.out.println("Nenhum cliente encontrado.");
+//			} else {
+//				listarClientes.forEach(System.out::println);
+//			}
 		};
 	}
 
