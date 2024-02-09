@@ -17,28 +17,28 @@ public class JavaApplication {
 	public CommandLineRunner exibir(Clientes clientes) {
 		return args -> {
 			System.out.println("Salvando Cliente");
-			clientes.salvarCliente(new Cliente("Davidson"));
-			clientes.salvarCliente(new Cliente("Pacifico"));
+			clientes.save(new Cliente("Davidson"));
+			clientes.save(new Cliente("Pacifico"));
 
-			List<Cliente> listarClientes = clientes.listarClientes();
+			List<Cliente> listarClientes = clientes.findAll();
 			listarClientes.forEach(System.out::println);
 
 			System.out.println("Atualizando Cliente");
 			listarClientes.forEach(c -> {
 				c.setNome(c.getNome() + "atualizado.");
-				clientes.atualizarCliente(c);
+				clientes.save(c);
 				System.out.println(c);
 			});
 
 			System.out.println("Buscando Clientes ");
-			clientes.buscarPorNome("atual").forEach(System.out::println);
+			clientes.findByNomeLike("atual").forEach(System.out::println);
 
 			System.out.println("Deletando clientes");
-			clientes.listarClientes().forEach(c -> {
-				clientes.deletar(c);
+			clientes.findAll().forEach(c -> {
+				clientes.delete(c);
 			});
 
-			listarClientes = clientes.listarClientes();
+			listarClientes = clientes.findAll();
 			if(listarClientes.isEmpty()) {
 				System.out.println("Nenhum cliente encontrado.");
 			} else {
