@@ -23,8 +23,8 @@ public class JavaApplication {
 			List<Cliente> listarClientes = clientes.findAll();
 			listarClientes.forEach(System.out::println);
 
-			boolean existe = clientes.existsByNome("Davidson");
-			System.out.println("Existe o usuario Davidson? " + existe);
+			List<Cliente> nomes = clientes.encontrarPorNome("Pacifico");
+			nomes.forEach(System.out::println);
 
 		};
 	}
