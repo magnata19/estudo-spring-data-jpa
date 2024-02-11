@@ -21,11 +21,11 @@ public class Pedido {
   @Column(name = "data_pedido")
   private LocalDate dataPedido;
 
-  @Column(name = "total", length = 20, precision = 2)
+  @Column(name = "total", scale = 2, precision = 20)
   private BigDecimal total;
 
-  @OneToMany(mappedBy = " pedido ")
-  private List<ItemPedido> itemPedido;
+  @OneToMany(mappedBy = "pedido")
+  List<ItemPedido> itens;
 
   public Integer getId() {
     return id;
@@ -59,11 +59,13 @@ public class Pedido {
     this.total = total;
   }
 
-  public List<ItemPedido> getItemPedido() {
-    return itemPedido;
-  }
 
-  public void setItemPedido(List<ItemPedido> itemPedido) {
-    this.itemPedido = itemPedido;
+  @Override
+  public String toString() {
+    return "Pedido{" +
+            "id=" + id +
+            ", dataPedido=" + dataPedido +
+            ", total=" + total +
+            '}';
   }
 }
