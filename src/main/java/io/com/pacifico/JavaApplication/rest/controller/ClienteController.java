@@ -34,4 +34,17 @@ public class ClienteController {
     Cliente clienteSave = clientes.save(cliente);
     return ResponseEntity.ok(clienteSave);
   }
+
+  @DeleteMapping("/{id}")
+  @ResponseBody
+  public ResponseEntity delete (@PathVariable Integer id) {
+    Optional<Cliente> cliente = clientes.findById(id);
+
+    if(cliente.isPresent()) {
+      clientes.delete(cliente.get());
+      return ResponseEntity.noContent().build();
+    }
+
+    return ResponseEntity.notFound().build();
+  }
 }
