@@ -3,11 +3,14 @@ package io.com.pacifico.JavaApplication.rest.controller;
 import io.com.pacifico.JavaApplication.domain.entity.Cliente;
 import io.com.pacifico.JavaApplication.domain.repository.Clientes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -56,5 +59,15 @@ public class ClienteController {
       clientes.save(cliente);
       return ResponseEntity.noContent().build();
     }).orElseGet(() -> ResponseEntity.notFound().build());
+  }
+
+  @GetMapping
+  public ResponseEntity find(Cliente filtro) {
+    ExampleMatcher matcher = ExampleMatcher.matching()
+                              .withIgnoreCase()
+                              .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+    Example example = Example.of(filtro, matcher);
+    List<Cliente> lista = clientes.findAll(example);
+    return ResponseEntity.ok(lista);
   }
 }
