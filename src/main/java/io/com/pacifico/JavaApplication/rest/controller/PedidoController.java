@@ -2,6 +2,8 @@ package io.com.pacifico.JavaApplication.rest.controller;
 
 import io.com.pacifico.JavaApplication.domain.entity.ItemPedido;
 import io.com.pacifico.JavaApplication.domain.entity.Pedido;
+import io.com.pacifico.JavaApplication.domain.enums.StatusPedido;
+import io.com.pacifico.JavaApplication.rest.dto.AtualizacaoStatusPedidoDTO;
 import io.com.pacifico.JavaApplication.rest.dto.InformacaoItemPedidoDTO;
 import io.com.pacifico.JavaApplication.rest.dto.InformacoesPedidoDTO;
 import io.com.pacifico.JavaApplication.rest.dto.PedidoDTO;
@@ -40,6 +42,13 @@ public class PedidoController {
     return service.obterPedidoCompleto(id).map(p -> converter(p)).orElseThrow(() ->
             new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido não encontrado")
             );
+  }
+
+  @PatchMapping("/{id}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void updateStatus(@PathVariable Integer id, @RequestBody AtualizacaoStatusPedidoDTO dto) {
+    String novoStatus = dto.getNovoStatus();
+    service.atualizarStatus(id, StatusPedido.valueOf(novoStatus));
   }
 
   public InformacoesPedidoDTO converter ( Pedido pedido) {

@@ -9,6 +9,7 @@ import io.com.pacifico.JavaApplication.domain.repository.Clientes;
 import io.com.pacifico.JavaApplication.domain.repository.ItemsPedido;
 import io.com.pacifico.JavaApplication.domain.repository.Pedidos;
 import io.com.pacifico.JavaApplication.domain.repository.Produtos;
+import io.com.pacifico.JavaApplication.exception.PedidoNaoEncontradoException;
 import io.com.pacifico.JavaApplication.exception.RegraNegocioException;
 import io.com.pacifico.JavaApplication.rest.dto.ItemPedidoDTO;
 import io.com.pacifico.JavaApplication.rest.dto.PedidoDTO;
@@ -53,6 +54,18 @@ public class PedidoServiceImpl implements PedidoService {
   @Override
   public Optional<Pedido> obterPedidoCompleto(Integer id) {
     return pedidoRepository.findByIdFetchItens(id);
+  }
+
+  @Override
+  @Transactional
+  public void atualizarStatus(Integer id, StatusPedido statusPedido) {
+    pedidoRepository.findById(id)
+            .map(pedido -> {
+              pedido.setStatus(statusPedido);
+              return pedidoRepository.save(pedido);
+            }).orElseThrow(() ->
+                    new PedidoNaoEncontradoException()
+                    );
   }
 
   public List<ItemPedido> converterItems (Pedido pedido, List<ItemPedidoDTO> items) {
