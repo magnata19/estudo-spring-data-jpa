@@ -48,6 +48,11 @@ public class PedidoServiceImpl implements PedidoService {
     return pedido;
   }
 
+  @Override
+  public Optional<Pedido> obterPedidoCompleto(Integer id) {
+    return pedidoRepository.findByIdFetchItens(id);
+  }
+
   public List<ItemPedido> converterItems (Pedido pedido, List<ItemPedidoDTO> items) {
     if(items.isEmpty()) {
       new RegraNegocioException("Não é possível realizar um pedido sem itens.");
