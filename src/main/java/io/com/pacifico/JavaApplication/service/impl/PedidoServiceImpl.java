@@ -4,6 +4,7 @@ import io.com.pacifico.JavaApplication.domain.entity.Cliente;
 import io.com.pacifico.JavaApplication.domain.entity.ItemPedido;
 import io.com.pacifico.JavaApplication.domain.entity.Pedido;
 import io.com.pacifico.JavaApplication.domain.entity.Produto;
+import io.com.pacifico.JavaApplication.domain.enums.StatusPedido;
 import io.com.pacifico.JavaApplication.domain.repository.Clientes;
 import io.com.pacifico.JavaApplication.domain.repository.ItemsPedido;
 import io.com.pacifico.JavaApplication.domain.repository.Pedidos;
@@ -41,6 +42,7 @@ public class PedidoServiceImpl implements PedidoService {
     pedido.setTotal(dto.getTotal());
     pedido.setDataPedido(LocalDate.now());
     pedido.setCliente(cliente);
+    pedido.setStatus(StatusPedido.REALIZADO);
 
     List<ItemPedido> itemsPedidos = converterItems(pedido, dto.getItems());
     pedidoRepository.save(pedido);
