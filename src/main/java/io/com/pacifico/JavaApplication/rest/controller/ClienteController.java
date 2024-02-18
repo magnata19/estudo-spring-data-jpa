@@ -2,6 +2,7 @@ package io.com.pacifico.JavaApplication.rest.controller;
 
 import io.com.pacifico.JavaApplication.domain.entity.Cliente;
 import io.com.pacifico.JavaApplication.domain.repository.Clientes;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -29,7 +30,7 @@ public class ClienteController {
 
   @PostMapping()
   @ResponseStatus(HttpStatus.CREATED)
-  public Cliente save(@RequestBody Cliente cliente) {
+  public Cliente save(@RequestBody @Valid Cliente cliente) {
     return clientes.save(cliente);
 
   }
