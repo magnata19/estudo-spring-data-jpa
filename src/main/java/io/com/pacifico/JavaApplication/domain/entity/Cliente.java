@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.Set;
 
@@ -27,6 +28,8 @@ public class Cliente {
   private String nome;
 
   @Column(name = "cpf", length = 11)
+  @NotBlank(message = "O campo CPF é obrigatório.")
+  @CPF(message = "Informe um cpf válido. ")
   private String cpf;
 
   @JsonIgnore
