@@ -2,6 +2,7 @@ package io.com.pacifico.JavaApplication.rest.controller;
 
 import io.com.pacifico.JavaApplication.domain.entity.Produto;
 import io.com.pacifico.JavaApplication.domain.repository.Produtos;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -27,7 +28,7 @@ public class ProdutoController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED) // when success
-  public Produto save(@RequestBody Produto produto) {
+  public Produto save(@RequestBody @Valid Produto produto) {
     return produtos.save(produto);
   }
 
@@ -44,7 +45,7 @@ public class ProdutoController {
 
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public Produto update(@PathVariable Integer id, @RequestBody Produto produto) {
+  public Produto update(@PathVariable Integer id, @RequestBody @Valid Produto produto) {
     return produtos.findById(id).map(produtoExistente -> {
       produto.setId(produtoExistente.getId());
       produtos.save(produto);
