@@ -1,5 +1,6 @@
 package io.com.pacifico.JavaApplication.rest.dto;
 
+import io.com.pacifico.JavaApplication.validation.NotEmptyList;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -15,10 +16,12 @@ import java.util.List;
 @AllArgsConstructor
 public class PedidoDTO {
 
-  @NotNull(message = "O código do cliente é obnrigatório.")
+  @NotNull(message = "{campo.codigo-cliente.obrigatorio}")
   private Integer cliente;
 
-  @NotNull(message = "O total de pedido é obrigatório.")
+  @NotNull(message = "{campo.total-pedido.obrigatorio}")
   private BigDecimal total;
+
+  @NotEmptyList(message = "{campo.items-pedido.obrigatorio}")
   private List<ItemPedidoDTO> items;
 }
